@@ -13,10 +13,12 @@ export function PixelButton({
   children,
   secondary = false,
   href,
+  disabled = false,
 }: {
   children: React.ReactNode;
   secondary?: boolean;
   href?: string;
+  disabled?: boolean;
 }) {
   const cls = `inline-block rounded-none border-4 border-black px-5 py-3 text-sm font-bold uppercase tracking-wide shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-transform hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] cursor-pointer ${
     secondary ? "bg-white text-black" : "bg-lime-300 text-black"
@@ -31,7 +33,7 @@ export function PixelButton({
   }
 
   return (
-    <button type="button" className={cls}>
+    <button type="submit" className={cls} disabled={disabled}>
       {children}
     </button>
   );

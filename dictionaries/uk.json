@@ -82,7 +82,8 @@
     "messagePlaceholder": "Розкажіть що потрібно автоматизувати...",
     "submit": "Надіслати заявку",
     "successTitle": "Заявку надіслано!",
-    "successText": "Зв'яжусь протягом дня."
+    "successText": "Зв'яжусь протягом дня.",
+    "errorText": "Помилка. Спробуйте ще раз."
   },
   "footer": {
     "eyebrow": "Hrushevski AI Lab",

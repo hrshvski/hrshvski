@@ -26,7 +26,7 @@ export default async function LangPage({ params }: PageProps<"/[lang]">) {
       <Hero dict={dict} />
       <Services dict={dict} />
       <Cases dict={dict} />
-      <Contact dict={dict} />
+      <Contact dict={dict} lang={lang} />
       <Footer dict={dict} />
     </div>
   );

@@ -82,7 +82,8 @@
     "messagePlaceholder": "Tell us what needs to be automated...",
     "submit": "Send request",
     "successTitle": "Request sent!",
-    "successText": "I'll get back to you within the day."
+    "successText": "I'll get back to you within the day.",
+    "errorText": "Error. Please try again."
   },
   "footer": {
     "eyebrow": "Hrushevski AI Lab",

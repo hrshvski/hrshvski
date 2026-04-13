@@ -5,13 +5,39 @@ import { useState } from "react";
 import Icon from "../Icon";
 import { Panel, PixelButton } from "../ui";
 
-export default function Contact({ dict }: { dict: Dictionary }) {
+export default function Contact({ dict, lang }: { dict: Dictionary; lang: string }) {
   const { contact } = dict;
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSent(true);
+    setLoading(true);
+    setError(null);
+
+    const form = e.currentTarget;
+    const data = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+      lang,
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) throw new Error("error");
+      setSent(true);
+    } catch {
+      setError(contact.errorText ?? "Помилка. Спробуйте ще раз.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -111,7 +137,12 @@ export default function Contact({ dict }: { dict: Dictionary }) {
                   />
                 </div>
 
-                <PixelButton>{contact.submit}</PixelButton>
+                {error && (
+                  <p className="text-xs font-bold text-red-600">{error}</p>
+                )}
+                <PixelButton disabled={loading}>
+                  {loading ? "..." : contact.submit}
+                </PixelButton>
               </form>
             )}
           </Panel>
