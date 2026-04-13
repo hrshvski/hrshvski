@@ -1,0 +1,103 @@
+{
+  "lang": "en",
+  "nav": {
+    "services": "Services",
+    "cases": "Cases",
+    "contact": "Contact"
+  },
+  "langSwitcher": {
+    "ru": "RU",
+    "uk": "UA",
+    "en": "EN"
+  },
+  "hero": {
+    "tag": "AI automation for business",
+    "title": "Building AI systems for business, block by block.",
+    "badge": "hrshvski.com",
+    "text": "Automating sales, support, document workflows, and internal processes with AI agents, integrations, and workflow scenarios.",
+    "primaryCta": "Discuss a project",
+    "secondaryCta": "View case studies",
+    "bullets": ["AI bots", "CRM automation", "API integrations", "Workflow systems"],
+    "panelTitle": "Hrushevski AI Lab",
+    "panelText": "Pixel aesthetics, engineering mindset, and modular architecture. Hrushevski AI Lab builds AI solutions, process automation, chatbots, and integrations for businesses."
+  },
+  "services": {
+    "eyebrow": "What can be implemented",
+    "heading": "Services & systems",
+    "items": [
+      {
+        "icon": "bot",
+        "title": "AI assistants",
+        "text": "Chatbots for websites, Telegram, CRM, and internal teams."
+      },
+      {
+        "icon": "flow",
+        "title": "Business automation",
+        "text": "We connect forms, CRM, spreadsheets, email, and messengers into one unified flow."
+      },
+      {
+        "icon": "cpu",
+        "title": "AI integrations",
+        "text": "We plug in models, classification, response generation, and document processing."
+      },
+      {
+        "icon": "shield",
+        "title": "Reliable architecture",
+        "text": "Access control, logging, scenario governance, and support for growing teams."
+      }
+    ]
+  },
+  "cases": {
+    "eyebrow": "Impact examples",
+    "heading": "Case studies",
+    "description": "Real results from AI automation: less routine, faster processes, more time for what matters.",
+    "more": "Learn more",
+    "items": [
+      {
+        "title": "Automated lead handling",
+        "result": "-62% manual work",
+        "text": "Leads automatically land in CRM, get sorted by AI, and assigned to the right manager."
+      },
+      {
+        "title": "AI customer support",
+        "result": "+38% faster responses",
+        "text": "The bot handles FAQs, collects data, and escalates complex requests to a human."
+      },
+      {
+        "title": "Documents & reports",
+        "result": "Up to 5x faster",
+        "text": "Generate templates, summaries, and internal reports without manual copy-pasting."
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Ready to start?",
+    "heading": "Let's discuss your project",
+    "text": "Tell us your challenge — we'll figure out what to automate first and how quickly it can deliver results.",
+    "namePlaceholder": "What's your name?",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "your@email.com",
+    "messageLabel": "Your challenge",
+    "messagePlaceholder": "Tell us what needs to be automated...",
+    "submit": "Send request",
+    "successTitle": "Request sent!",
+    "successText": "I'll get back to you within the day."
+  },
+  "footer": {
+    "eyebrow": "Hrushevski AI Lab",
+    "heading": "Business AI automation & smart systems",
+    "text": "hrshvski.com — building automation for businesses, AI agents, integrations, and digital systems for real-world company needs.",
+    "primaryCta": "Discuss an AI solution",
+    "secondaryCta": "View services",
+    "structureTitle": "Site structure",
+    "structure": [
+      "Hero block with offer",
+      "Services & automations",
+      "Cases & results",
+      "Stack & integrations",
+      "Contact form"
+    ],
+    "copyright": "Hrushevski AI Lab · hrshvski.com"
+  }
+}
