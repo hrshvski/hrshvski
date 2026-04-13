@@ -36,7 +36,7 @@ export default function Hero({ dict }: { dict: Dictionary }) {
             {hero.bullets.map((item) => (
               <div
                 key={item}
-                className="flex items-center gap-2 border-4 border-black bg-white px-3 py-3 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+                className="flex items-center gap-2 border-4 border-black bg-white px-3 py-3 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-transform hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
               >
                 <Icon name="zap" className="h-4 w-4" />
                 {item}
@@ -68,7 +68,7 @@ export default function Hero({ dict }: { dict: Dictionary }) {
             ).map((item) => (
               <div
                 key={item.label}
-                className="flex items-center justify-center gap-2 border-4 border-black bg-white px-3 py-4 text-sm font-black uppercase tracking-wider shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+                className="flex items-center justify-center gap-2 border-4 border-black bg-white px-3 py-4 text-sm font-black uppercase tracking-wider shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-transform hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
               >
                 <Icon name={item.icon} className="h-4 w-4" />
                 {item.label}
