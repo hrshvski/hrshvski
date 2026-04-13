@@ -48,7 +48,7 @@ export function Panel({
 }) {
   return (
     <div
-      className={`border-4 border-black bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] ${className}`}
+      className={`border-4 border-black bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-transform hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] ${className}`}
     >
       {children}
     </div>
