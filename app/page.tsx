@@ -1,5 +1,5 @@
-// This page is never rendered — proxy.ts redirects / to /[lang].
-// It exists only to satisfy Next.js route requirements.
+import { redirect } from "next/navigation";
+
 export default function RootPage() {
-  return null;
+  redirect("/ru");
 }

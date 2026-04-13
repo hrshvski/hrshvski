@@ -34,7 +34,6 @@ export default function Contact({ dict }: { dict: Dictionary }) {
               {[
                 { icon: "mail", label: "office@hrshvski.com" },
                 { icon: "phone", label: "+380 63 964 08 48" },
-                { icon: "github", label: "http://localhost:3000/uk" },
               ].map((item) => (
                 <div
                   key={item.label}
