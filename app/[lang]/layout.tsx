@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import "../globals.css";
 import { getDictionary, hasLocale, type Locale } from "./dictionaries";
+import GoogleAnalytics from "@/app/components/GoogleAnalytics";
 
 const font = JetBrains_Mono({
   subsets: ["latin", "cyrillic"],
@@ -69,12 +70,20 @@ export default async function LangLayout({
 }: LayoutProps<"/[lang]">) {
   const { lang } = await params;
   const locale: Locale = hasLocale(lang) ? lang : "ru";
+  const dict = await getDictionary(locale);
 
   const htmlLang = locale === "uk" ? "uk" : locale === "en" ? "en" : "ru";
 
   return (
     <html lang={htmlLang} className={font.variable}>
-      <body className="min-h-screen antialiased">{children}</body>
+      <body className="min-h-screen antialiased">
+        {children}
+        <GoogleAnalytics
+          text={dict.cookie.text}
+          accept={dict.cookie.accept}
+          decline={dict.cookie.decline}
+        />
+      </body>
     </html>
   );
 }

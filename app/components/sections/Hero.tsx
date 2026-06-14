@@ -77,9 +77,6 @@ export default function Hero({ dict }: { dict: Dictionary }) {
 
         {/* Right — isometric block stack */}
         <div className="relative flex h-[420px] items-center justify-center">
-          <div className="absolute right-2 top-2 text-[10px] tracking-[0.15em] text-[#565b66]">
-            {hero.figLabel} ↘
-          </div>
           <div style={{ perspective: "900px" }}>
             <div
               className="relative h-[240px] w-[240px]"

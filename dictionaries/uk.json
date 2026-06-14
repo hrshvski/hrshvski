@@ -85,5 +85,10 @@
   },
   "footer": {
     "copyright": "Hrushevski AI Lab"
+  },
+  "cookie": {
+    "text": "Ми використовуємо аналітику, щоб покращувати сайт.",
+    "accept": "Прийняти",
+    "decline": "Відхилити"
   }
 }
