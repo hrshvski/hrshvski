@@ -19,7 +19,6 @@
     "primaryCta": "Обговорити проєкт",
     "secondaryCta": "Переглянути кейси",
     "bullets": ["AI-боти", "CRM-автоматизація", "API-інтеграції", "Workflow"],
-    "figLabel": "FIG.01 / 3D-РЕНДЕР",
     "figCaption": "// модульна архітектура · pixel core"
   },
   "process": {
