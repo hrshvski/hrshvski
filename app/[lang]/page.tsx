@@ -22,6 +22,20 @@ export default async function LangPage({ params }: PageProps<"/[lang]">) {
 
   const dict = await getDictionary(lang as Locale);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: "Hrushevski AI Lab",
+    url: `https://hrshvski.com/${lang}`,
+    image: "https://hrshvski.com/icon.svg",
+    email: "office@hrshvski.com",
+    telephone: "+380639640848",
+    description: dict.hero.text,
+    areaServed: "UA",
+    knowsLanguage: ["uk", "ru", "en"],
+    sameAs: ["https://github.com/hrshvski"],
+  };
+
   return (
     <div
       className="min-h-screen bg-[#0a0b0e] text-[#e6e8ec]"
@@ -31,6 +45,10 @@ export default async function LangPage({ params }: PageProps<"/[lang]">) {
         backgroundSize: "44px 44px",
       }}
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Header dict={dict} lang={lang as Locale} />
       <Hero dict={dict} />
       <Process dict={dict} />

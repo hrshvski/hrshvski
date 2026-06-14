@@ -28,20 +28,37 @@ export async function generateMetadata({
     en: "We build AI agents, chatbots, CRM integrations, and workflow automation for businesses. hrshvski.com",
   };
 
+  const ogLocale: Record<Locale, string> = {
+    uk: "uk_UA",
+    ru: "ru_RU",
+    en: "en_US",
+  };
+
   return {
+    metadataBase: new URL("https://hrshvski.com"),
     title: titles[locale],
     description: descriptions[locale],
-    openGraph: {
-      title: dict.footer.copyright,
-      description: dict.hero.text,
-      siteName: "hrshvski.com",
-    },
     alternates: {
+      canonical: `/${locale}`,
       languages: {
-        ru: "/ru",
         uk: "/uk",
+        ru: "/ru",
         en: "/en",
+        "x-default": "/uk",
       },
+    },
+    openGraph: {
+      type: "website",
+      url: `/${locale}`,
+      title: titles[locale],
+      description: descriptions[locale],
+      siteName: "hrshvski.com",
+      locale: ogLocale[locale],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: titles[locale],
+      description: descriptions[locale],
     },
   };
 }
