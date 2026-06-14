@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import "../globals.css";
 import { getDictionary, hasLocale, type Locale } from "./dictionaries";
 
-const font = Space_Grotesk({
-  subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "700"],
-  variable: "--font-sans",
+const font = JetBrains_Mono({
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "700", "800"],
+  variable: "--font-mono",
 });
 
 export async function generateMetadata({
@@ -32,7 +32,7 @@ export async function generateMetadata({
     title: titles[locale],
     description: descriptions[locale],
     openGraph: {
-      title: dict.footer.eyebrow,
+      title: dict.footer.copyright,
       description: dict.hero.text,
       siteName: "hrshvski.com",
     },
@@ -57,9 +57,7 @@ export default async function LangLayout({
 
   return (
     <html lang={htmlLang} className={font.variable}>
-      <body className="min-h-screen font-[var(--font-sans)] antialiased">
-        {children}
-      </body>
+      <body className="min-h-screen antialiased">{children}</body>
     </html>
   );
 }

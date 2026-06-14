@@ -1,6 +1,5 @@
 import type { Dictionary, Locale } from "@/app/[lang]/dictionaries";
 import { locales } from "@/app/[lang]/dictionaries";
-import LogoIcon from "../LogoIcon";
 
 export default function Header({
   dict,
@@ -10,57 +9,55 @@ export default function Header({
   lang: Locale;
 }) {
   const navAnchors: { key: keyof Dictionary["nav"]; anchor: string }[] = [
-    { key: "services", anchor: "#услуги" },
-    { key: "cases", anchor: "#кейсы" },
-    { key: "contact", anchor: "#контакт" },
+    { key: "services", anchor: "#services" },
+    { key: "cases", anchor: "#cases" },
+    { key: "contact", anchor: "#contact" },
   ];
 
   return (
-    <header className="border-b-4 border-black bg-[#d9d2c0]">
-      <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <LogoIcon />
-            <a href={`/${lang}`}>
-              <div className="text-lg font-black tracking-widest">
-                Hrushevski AI Lab
-              </div>
-              <div className="text-xs tracking-[0.25em] text-slate-700">
-                hrshvski.com
-              </div>
+    <header className="border-b border-dashed border-white/12">
+      <div className="mx-auto flex max-w-[1240px] items-center gap-6 px-5 py-5 sm:px-10">
+        <a href={`/${lang}`} className="flex items-center gap-2.5">
+          <span className="grid grid-cols-2 grid-rows-2 gap-[2px]">
+            <span className="h-[7px] w-[7px] bg-[#4ade80]" />
+            <span className="h-[7px] w-[7px] bg-[#2b3a2f]" />
+            <span className="h-[7px] w-[7px] bg-[#2b3a2f]" />
+            <span className="h-[7px] w-[7px] bg-[#4ade80]" />
+          </span>
+          <span className="text-sm font-extrabold tracking-[0.04em]">
+            HRUSHEVSKI SYSTEMS
+          </span>
+          <span className="hidden text-[11px] text-[#565b66] sm:inline">
+            / hrshvski.com
+          </span>
+        </a>
+
+        <nav className="ml-auto hidden gap-[22px] text-xs text-[#8a8f99] sm:flex">
+          {navAnchors.map(({ key, anchor }) => (
+            <a
+              key={key}
+              href={anchor}
+              className="transition-colors hover:text-[#4ade80]"
+            >
+              {dict.nav[key]}
             </a>
-          </div>
+          ))}
+        </nav>
 
-          <div className="flex items-center gap-4">
-            <nav className="hidden gap-6 sm:flex">
-              {navAnchors.map(({ key, anchor }) => (
-                <a
-                  key={key}
-                  href={anchor}
-                  className="border-b-2 border-transparent text-sm font-bold uppercase tracking-wider hover:border-black transition-colors"
-                >
-                  {dict.nav[key]}
-                </a>
-              ))}
-            </nav>
-
-            {/* Language switcher */}
-            <div className="flex gap-1">
-              {locales.map((locale) => (
-                <a
-                  key={locale}
-                  href={`/${locale}`}
-                  className={`border-2 border-black px-2 py-1 text-xs font-black uppercase tracking-wider transition-colors ${
-                    locale === lang
-                      ? "bg-lime-300"
-                      : "bg-white hover:bg-slate-100"
-                  }`}
-                >
-                  {dict.langSwitcher[locale]}
-                </a>
-              ))}
-            </div>
-          </div>
+        <div className="ml-auto flex gap-1.5 text-[11px] sm:ml-0">
+          {locales.map((locale) => (
+            <a
+              key={locale}
+              href={`/${locale}`}
+              className={
+                locale === lang
+                  ? "border border-[#4ade80]/40 px-[7px] py-[3px] text-[#4ade80]"
+                  : "border border-white/8 px-[7px] py-[3px] text-[#565b66] transition-colors hover:text-[#e6e8ec]"
+              }
+            >
+              {dict.langSwitcher[locale]}
+            </a>
+          ))}
         </div>
       </div>
     </header>

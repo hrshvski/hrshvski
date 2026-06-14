@@ -1,79 +1,116 @@
 import type { Dictionary } from "@/app/[lang]/dictionaries";
-import Icon from "../Icon";
-import PixelScene from "../PixelScene";
-import { Panel, PixelBadge, PixelButton } from "../ui";
 
 export default function Hero({ dict }: { dict: Dictionary }) {
   const { hero } = dict;
 
+  const blocks = [
+    { fill: "#1a1d23", border: "#4ade80" },
+    { fill: "#14161a", border: "rgba(255,255,255,0.18)" },
+    { fill: "#1a1d23", border: "rgba(255,255,255,0.18)" },
+    { fill: "#14161a", border: "rgba(255,255,255,0.18)" },
+    { fill: "#4ade80", border: "#4ade80", accent: true },
+    { fill: "#14161a", border: "rgba(255,255,255,0.18)" },
+    { fill: "#1a1d23", border: "rgba(255,255,255,0.18)" },
+    { fill: "#14161a", border: "rgba(255,255,255,0.18)" },
+    { fill: "#1a1d23", border: "#4ade80" },
+  ];
+
   return (
-    <section>
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-16">
+    <section className="relative overflow-hidden">
+      <div
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          backgroundImage:
+            "radial-gradient(rgba(74,222,128,0.35) 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+          maskImage:
+            "linear-gradient(to bottom, #000, #000 16%, transparent 64%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, #000, #000 16%, transparent 64%)",
+          animation: "dotdrift 7s linear infinite",
+        }}
+      />
+
+      <div className="mx-auto grid max-w-[1240px] items-center gap-10 px-5 py-14 sm:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:py-[72px]">
         {/* Left */}
-        <div className="space-y-6">
-          <PixelBadge>{hero.tag}</PixelBadge>
-
-          <div>
-            <h1 className="max-w-2xl text-4xl font-black uppercase leading-tight sm:text-5xl lg:text-6xl">
-              {hero.title}
-            </h1>
-            <div className="mt-3 inline-block border-2 border-black bg-white px-3 py-1 text-xs font-black uppercase tracking-[0.2em] text-slate-700 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-              {hero.badge}
-            </div>
-            <p className="mt-4 max-w-xl text-base leading-7 text-slate-700 sm:text-lg">
-              {hero.text}
-            </p>
+        <div>
+          <div className="mb-7 inline-flex items-center gap-2 border border-[#4ade80]/40 px-3 py-1.5 text-[11px] tracking-[0.18em] text-[#4ade80]">
+            <span
+              className="h-1.5 w-1.5 bg-[#4ade80]"
+              style={{ animation: "blink 1.4s steps(1) infinite" }}
+            />
+            [ {hero.tag.toUpperCase()} ]
           </div>
-
-          <div className="flex flex-wrap gap-3">
-            <PixelButton href="#контакт">{hero.primaryCta}</PixelButton>
-            <PixelButton secondary href="#кейсы">
-              {hero.secondaryCta}
-            </PixelButton>
+          <h1 className="mb-[22px] text-[34px] font-extrabold leading-[1.02] tracking-[-0.02em] uppercase sm:text-[44px] lg:text-[52px]">
+            {hero.title}
+            <br />
+            <span className="text-[#4ade80]">{hero.titleAccent}</span>
+          </h1>
+          <p className="mb-[30px] max-w-[470px] text-[15px] leading-[1.6] text-[#8a8f99]">
+            {hero.text}
+          </p>
+          <div className="mb-[34px] flex flex-wrap gap-3">
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 bg-[#4ade80] px-[22px] py-[14px] text-[13px] font-bold text-[#06120a] transition-transform hover:-translate-y-0.5"
+            >
+              {hero.primaryCta.toUpperCase()} <span>→</span>
+            </a>
+            <a
+              href="#cases"
+              className="inline-flex items-center border border-white/18 px-[22px] py-[14px] text-[13px] font-medium text-[#e6e8ec] transition-colors hover:border-[#4ade80]/60"
+            >
+              {hero.secondaryCta.toUpperCase()}
+            </a>
           </div>
-
-          <div className="grid max-w-xl grid-cols-2 gap-3 pt-2">
+          <div className="flex flex-wrap gap-2">
             {hero.bullets.map((item) => (
-              <div
+              <span
                 key={item}
-                className="flex items-center gap-2 border-4 border-black bg-white px-3 py-3 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-transform hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+                className="border border-dashed border-white/14 px-2.5 py-1.5 text-[11px] text-[#565b66]"
               >
-                <Icon name="zap" className="h-4 w-4" />
                 {item}
-              </div>
+              </span>
             ))}
           </div>
-
-          <Panel className="p-4">
-            <div className="flex items-center gap-2 text-sm font-black uppercase tracking-wider">
-              <Icon name="github" className="h-4 w-4" />
-              {hero.panelTitle}
-            </div>
-            <p className="mt-2 text-sm leading-6 text-slate-700">
-              {hero.panelText}
-            </p>
-          </Panel>
         </div>
 
-        {/* Right */}
-        <div className="space-y-4">
-          <PixelScene />
-          <div className="grid grid-cols-3 gap-3">
-            {(
-              [
-                { icon: "briefcase", label: "B2B" },
-                { icon: "code", label: "API" },
-                { icon: "rocket", label: "Scale" },
-              ] as const
-            ).map((item) => (
-              <div
-                key={item.label}
-                className="flex items-center justify-center gap-2 border-4 border-black bg-white px-3 py-4 text-sm font-black uppercase tracking-wider shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-transform hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
-              >
-                <Icon name={item.icon} className="h-4 w-4" />
-                {item.label}
-              </div>
-            ))}
+        {/* Right — isometric block stack */}
+        <div className="relative flex h-[420px] items-center justify-center">
+          <div className="absolute right-2 top-2 text-[10px] tracking-[0.15em] text-[#565b66]">
+            {hero.figLabel} ↘
+          </div>
+          <div style={{ perspective: "900px" }}>
+            <div
+              className="relative h-[240px] w-[240px]"
+              style={{
+                transformStyle: "preserve-3d",
+                animation: "floaty 5s ease-in-out infinite",
+              }}
+            >
+              {blocks.map((b, i) => (
+                <div
+                  key={i}
+                  className="absolute h-[60px] w-[60px]"
+                  style={{
+                    left: `${(i % 3) * 60}px`,
+                    top: `${Math.floor(i / 3) * 60}px`,
+                    background: b.fill,
+                    border: `1px solid ${b.border}`,
+                    boxShadow: b.accent
+                      ? undefined
+                      : "0 0 0 1px rgba(74,222,128,0.04)",
+                    opacity: b.accent ? 0.9 : 1,
+                    animation: b.accent
+                      ? "pulseb 2.4s ease-in-out infinite"
+                      : undefined,
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+          <div className="absolute bottom-0 left-0 text-[10px] text-[#565b66]">
+            {hero.figCaption}
           </div>
         </div>
       </div>

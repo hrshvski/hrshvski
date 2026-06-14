@@ -1,13 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f4f1e8;
-  --foreground: #1e293b;
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
+  --background: #0a0b0e;
+  --foreground: #e6e8ec;
+  --muted: #8a8f99;
+  --dim: #565b66;
+  --accent: #4ade80;
+  --line: rgba(255, 255, 255, 0.12);
 }
 
 * {
@@ -16,4 +15,33 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-mono), ui-monospace, "JetBrains Mono", monospace;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent);
+  color: #06120a;
+}
+
+@keyframes floaty {
+  0%, 100% { transform: rotateX(58deg) rotateZ(45deg) translateZ(0); }
+  50% { transform: rotateX(58deg) rotateZ(45deg) translateZ(14px); }
+}
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+@keyframes pulseb {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+@keyframes dotdrift {
+  from { background-position: 0 0; }
+  to { background-position: 0 24px; }
 }

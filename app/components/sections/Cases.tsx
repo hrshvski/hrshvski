@@ -1,44 +1,45 @@
 import type { Dictionary } from "@/app/[lang]/dictionaries";
-import Icon from "../Icon";
-import { Panel } from "../ui";
 
 export default function Cases({ dict }: { dict: Dictionary }) {
   const { cases } = dict;
 
   return (
-    <section id="кейсы" className="py-12">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <div className="text-xs font-black uppercase tracking-[0.3em] text-slate-700">
-              {cases.eyebrow}
+    <section
+      id="cases"
+      className="mx-auto max-w-[1240px] px-5 pb-[72px] sm:px-10"
+    >
+      <div className="mb-9 flex flex-wrap items-baseline gap-4">
+        <span className="text-[11px] tracking-[0.2em] text-[#4ade80]">
+          03 / {cases.eyebrow}
+        </span>
+        <h2 className="text-[26px] font-extrabold tracking-[-0.01em] sm:text-[30px]">
+          {cases.heading}
+        </h2>
+      </div>
+      <div className="grid gap-4 lg:grid-cols-3">
+        {cases.items.map((item) => (
+          <div
+            key={item.title}
+            className="border border-white/12 bg-white/[0.015] p-[26px]"
+          >
+            <div className="mb-3.5 text-[10px] tracking-[0.12em] text-[#565b66]">
+              {item.industry}
             </div>
-            <h2 className="mt-3 text-3xl font-black uppercase sm:text-4xl">
-              {cases.heading}
-            </h2>
+            <div className="text-[36px] font-extrabold tracking-[-0.03em] text-[#4ade80]">
+              {item.result}
+            </div>
+            <div className="mb-5 mt-1 text-[11px] text-[#565b66]">
+              {item.resultLabel}
+            </div>
+            <div className="mb-2 text-[15px] font-bold">{item.title}</div>
+            <div className="text-xs leading-[1.6] text-[#8a8f99]">
+              {item.text}
+            </div>
+            <div className="mt-3.5 border-t border-dashed border-white/12 pt-3.5 text-[11px] text-[#aeb3bd]">
+              {item.detail}
+            </div>
           </div>
-          <p className="max-w-xl text-sm leading-6 text-slate-700">
-            {cases.description}
-          </p>
-        </div>
-
-        <div className="grid gap-5 lg:grid-cols-3">
-          {cases.items.map((item) => (
-            <Panel key={item.title} className="p-5">
-              <div className="inline-block border-2 border-black bg-lime-300 px-2 py-1 text-xs font-black uppercase tracking-wider">
-                {item.result}
-              </div>
-              <h3 className="mt-4 text-xl font-black uppercase">{item.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-700">{item.text}</p>
-              <button
-                type="button"
-                className="mt-5 inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide"
-              >
-                {cases.more} <Icon name="chevron-right" className="h-4 w-4" />
-              </button>
-            </Panel>
-          ))}
-        </div>
+        ))}
       </div>
     </section>
   );
