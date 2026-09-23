@@ -3,7 +3,8 @@
 import Script from "next/script";
 import { useEffect, useState } from "react";
 
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+// GA4 measurement IDs are public (they ship in the page); env var can override.
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "G-MMQ2RFH1G4";
 const STORAGE_KEY = "ga-consent";
 
 type Consent = "granted" | "denied";
