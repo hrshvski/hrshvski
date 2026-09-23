@@ -1,88 +1,75 @@
-import type { Metadata } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { notFound } from "next/navigation";
+import { Onest, IBM_Plex_Mono } from "next/font/google";
 import "../globals.css";
-import { getDictionary, hasLocale, type Locale } from "./dictionaries";
-import GoogleAnalytics from "@/app/components/GoogleAnalytics";
+import { hasLocale, htmlLang, locales } from "@/lib/i18n";
+import { SITE } from "@/lib/site";
+import { navData } from "@/content";
+import { ui } from "@/content/ui";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
+import ContactBand from "@/components/ContactBand";
+import Analytics from "@/components/Analytics";
 
-const font = JetBrains_Mono({
+const sans = Onest({
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "700", "800"],
-  variable: "--font-mono",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-onest",
+  display: "swap",
 });
 
-export async function generateMetadata({
-  params,
-}: LayoutProps<"/[lang]">): Promise<Metadata> {
-  const { lang } = await params;
-  const locale: Locale = hasLocale(lang) ? lang : "ru";
-  const dict = await getDictionary(locale);
+const mono = IBM_Plex_Mono({
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500"],
+  variable: "--font-plex-mono",
+  display: "swap",
+});
 
-  const titles: Record<Locale, string> = {
-    ru: "Hrushevski AI Lab — AI-автоматизация для бизнеса",
-    uk: "Hrushevski AI Lab — AI-автоматизація для бізнесу",
-    en: "Hrushevski AI Lab — AI automation for business",
-  };
+export const dynamicParams = false;
 
-  const descriptions: Record<Locale, string> = {
-    ru: "Разрабатываем AI-агентов, чат-боты, CRM-интеграции и workflow-автоматизацию для бизнеса. hrshvski.com",
-    uk: "Розробляємо AI-агентів, чат-ботів, CRM-інтеграції та workflow-автоматизацію для бізнесу. hrshvski.com",
-    en: "We build AI agents, chatbots, CRM integrations, and workflow automation for businesses. hrshvski.com",
-  };
-
-  const ogLocale: Record<Locale, string> = {
-    uk: "uk_UA",
-    ru: "ru_RU",
-    en: "en_US",
-  };
-
-  return {
-    metadataBase: new URL("https://hrshvski.com"),
-    title: titles[locale],
-    description: descriptions[locale],
-    alternates: {
-      canonical: `/${locale}`,
-      languages: {
-        uk: "/uk",
-        ru: "/ru",
-        en: "/en",
-        "x-default": "/uk",
-      },
-    },
-    openGraph: {
-      type: "website",
-      url: `/${locale}`,
-      title: titles[locale],
-      description: descriptions[locale],
-      siteName: "hrshvski.com",
-      locale: ogLocale[locale],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: titles[locale],
-      description: descriptions[locale],
-    },
-  };
+export function generateStaticParams() {
+  return locales.map((lang) => ({ lang }));
 }
 
-export default async function LangLayout({
-  children,
-  params,
-}: LayoutProps<"/[lang]">) {
-  const { lang } = await params;
-  const locale: Locale = hasLocale(lang) ? lang : "ru";
-  const dict = await getDictionary(locale);
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE.url),
+  applicationName: SITE.name,
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
+};
 
-  const htmlLang = locale === "uk" ? "uk" : locale === "en" ? "en" : "ru";
+export const viewport: Viewport = {
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f4f5f1" },
+    { media: "(prefers-color-scheme: dark)", color: "#0e1318" },
+  ],
+};
+
+export default async function LangLayout({ children, params }: LayoutProps<"/[lang]">) {
+  const { lang } = await params;
+  if (!hasLocale(lang)) notFound();
+  const nav = navData(lang);
 
   return (
-    <html lang={htmlLang} className={font.variable}>
-      <body className="min-h-screen antialiased">
-        {children}
-        <GoogleAnalytics
-          text={dict.cookie.text}
-          accept={dict.cookie.accept}
-          decline={dict.cookie.decline}
-        />
+    <html lang={htmlLang[lang]} className={`${sans.variable} ${mono.variable}`}>
+      <body className="min-h-screen">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-50 focus:rounded focus:bg-accent focus:px-3 focus:py-2 focus:text-accent-ink"
+        >
+          {lang === "uk" ? "До змісту" : "К содержанию"}
+        </a>
+        <SiteHeader lang={lang} services={nav.services} industries={nav.industries} />
+        <main id="main">{children}</main>
+        <ContactBand lang={lang} />
+        <SiteFooter lang={lang} services={nav.services} industries={nav.industries} products={nav.products} />
+        <Analytics text={ui.cookie.text[lang]} accept={ui.cookie.accept[lang]} decline={ui.cookie.decline[lang]} />
       </body>
     </html>
   );

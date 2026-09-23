@@ -1,47 +1,126 @@
 @import "tailwindcss";
 
+/* Design tokens. Light is the default; dark follows the OS. */
 :root {
-  --background: #0a0b0e;
-  --foreground: #e6e8ec;
-  --muted: #8a8f99;
-  --dim: #565b66;
-  --accent: #4ade80;
-  --line: rgba(255, 255, 255, 0.12);
+  --bg: #f4f5f1;
+  --surface: #ffffff;
+  --sunken: #eceee8;
+  --ink: #121a21;
+  --muted: #56616b;
+  --line: #d9ddd5;
+  --line-strong: #b9bfb5;
+  --accent: #2446b8;
+  --accent-hover: #1b3796;
+  --accent-ink: #ffffff;
+  --accent-soft: #e6ebfa;
+  --signal: #8f6310;
+  --signal-soft: #f5ecd8;
+  --ok: #1e7349;
+  --ok-soft: #e2f1e8;
+  --danger: #b23a1e;
+  color-scheme: light;
 }
 
-* {
-  box-sizing: border-box;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e1318;
+    --surface: #151c23;
+    --sunken: #10161c;
+    --ink: #e6eaee;
+    --muted: #98a3ae;
+    --line: #26303a;
+    --line-strong: #3a4652;
+    --accent: #8ea4ff;
+    --accent-hover: #adbdff;
+    --accent-ink: #0e1318;
+    --accent-soft: #1c2544;
+    --signal: #e2b65e;
+    --signal-soft: #2c2414;
+    --ok: #6fd19c;
+    --ok-soft: #15291f;
+    --danger: #f09a72;
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-sunken: var(--sunken);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-signal: var(--signal);
+  --color-signal-soft: var(--signal-soft);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-onest), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, Menlo, monospace;
 }
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-mono), ui-monospace, "JetBrains Mono", monospace;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3 {
+  text-wrap: balance;
 }
 
 ::selection {
   background: var(--accent);
-  color: #06120a;
+  color: var(--accent-ink);
 }
 
-@keyframes floaty {
-  0%, 100% { transform: rotateX(58deg) rotateZ(45deg) translateZ(0); }
-  50% { transform: rotateX(58deg) rotateZ(45deg) translateZ(14px); }
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
-@keyframes blink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
-@keyframes pulseb {
-  0%, 100% { opacity: 0.35; }
-  50% { opacity: 1; }
+
+/* Long-form text (blog, legal) */
+.prose-site { max-width: 68ch; font-size: 17px; line-height: 1.7; }
+.prose-site > * + * { margin-top: 1em; }
+.prose-site h2 { font-size: 1.45em; font-weight: 700; line-height: 1.25; margin-top: 2em; letter-spacing: -0.01em; }
+.prose-site h3 { font-size: 1.15em; font-weight: 600; margin-top: 1.6em; }
+.prose-site ul { list-style: disc; padding-left: 1.3em; }
+.prose-site ol { list-style: decimal; padding-left: 1.3em; }
+.prose-site li + li { margin-top: 0.35em; }
+.prose-site a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.prose-site strong { font-weight: 600; }
+
+/* Pipeline ("flow") connector animation: a signal travels along the wire. */
+@keyframes flow-pulse {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(400%); }
 }
-@keyframes dotdrift {
-  from { background-position: 0 0; }
-  to { background-position: 0 24px; }
+.flow-wire { position: relative; overflow: hidden; }
+.flow-wire::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 25%;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation: flow-pulse 2.4s linear infinite;
 }
