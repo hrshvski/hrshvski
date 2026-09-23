@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { formatUAH, type L, type Locale } from "@/lib/i18n";
 import { PREFILL_EVENT, track } from "@/lib/track";
 
@@ -56,6 +56,7 @@ const t = {
     ru: "Это ориентир для типового объёма. Точную цену фиксируем в договоре после 30-минутной диагностики.",
   },
   send: { uk: "Надіслати розрахунок", ru: "Отправить расчёт" },
+  details: { uk: "Деталі", ru: "Детали" },
   weeks: {
     s: { uk: "1–2 тижні", ru: "1–2 недели" },
     m: { uk: "2–4 тижні", ru: "2–4 недели" },
@@ -111,6 +112,17 @@ export default function BotCalculator({ lang }: { lang: Locale }) {
   const [ints, setInts] = useState<string[]>(["crm"]);
   const [aiLevel, setAi] = useState("none");
   const [ex, setEx] = useState<string[]>(["admin"]);
+  // On phones the summary sits below all options; show a sticky price bar until it scrolls into view.
+  const summaryRef = useRef<HTMLElement>(null);
+  const [summaryVisible, setSummaryVisible] = useState(true);
+  useEffect(() => {
+    const el = summaryRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    // Hide the bar once the summary is on screen or already scrolled past (above the viewport).
+    const io = new IntersectionObserver(([e]) => setSummaryVisible(e.isIntersecting || e.boundingClientRect.top < 0), { rootMargin: "0px 0px -80px 0px" });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   const toggle = (list: string[], set: (v: string[]) => void, id: string) =>
     set(list.includes(id) ? list.filter((x) => x !== id) : [...list, id]);
@@ -170,7 +182,7 @@ export default function BotCalculator({ lang }: { lang: Locale }) {
         </Group>
       </div>
 
-      <aside className="rounded-lg border border-line bg-surface p-6 lg:sticky lg:top-24" aria-live="polite">
+      <aside ref={summaryRef} className="rounded-lg border border-line bg-surface p-6 lg:sticky lg:top-24" aria-live="polite">
         <div className="font-mono text-[11.5px] uppercase tracking-[0.1em] text-muted">{t.result[lang]}</div>
         <div className="mt-2 font-mono text-[28px] font-medium leading-tight tabular-nums sm:text-[32px]">
           {formatUAH(low, lang)}
@@ -197,6 +209,31 @@ export default function BotCalculator({ lang }: { lang: Locale }) {
         </button>
         <p className="mt-3 text-[12.5px] leading-[1.5] text-muted">{t.disclaimer[lang]}</p>
       </aside>
+
+      <div
+        aria-hidden={summaryVisible}
+        className={`fixed inset-x-0 bottom-0 z-30 border-t border-line bg-surface/95 px-4 pt-3 backdrop-blur transition-transform lg:hidden ${
+          summaryVisible ? "translate-y-full" : "translate-y-0"
+        }`}
+        style={{ paddingBottom: "calc(12px + env(safe-area-inset-bottom, 0px))" }}
+      >
+        <div className="mx-auto flex max-w-[640px] items-center justify-between gap-3">
+          <div className="min-w-0">
+            <div className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted">{t.result[lang]}</div>
+            <div className="truncate font-mono text-[16px] font-medium tabular-nums">
+              {formatUAH(low, lang)} – {formatUAH(high, lang)}
+            </div>
+          </div>
+          <button
+            type="button"
+            tabIndex={summaryVisible ? -1 : 0}
+            onClick={() => summaryRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })}
+            className="flex-none rounded-md bg-accent px-4 py-2.5 text-[14px] font-semibold text-accent-ink"
+          >
+            {t.details[lang]}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

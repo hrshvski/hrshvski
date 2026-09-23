@@ -3,8 +3,8 @@ import type { Faq, Step } from "@/lib/types";
 
 export const home = {
   metaTitle: {
-    uk: "Hrushevski Systems — AI-автоматизація для HoReCa, дистрибуції та сервісу",
-    ru: "Hrushevski Systems — AI-автоматизация для HoReCa, дистрибуции и сервиса",
+    uk: "Hrushevski Systems — автоматизація для HoReCa і дистрибуції",
+    ru: "Hrushevski Systems — автоматизация для HoReCa и дистрибуции",
   },
   metaDescription: {
     uk: "Telegram-боти, AI-асистенти, інтеграції, CRM і заміна 1С/BAS для українського бізнесу. Відкриті ціни, перший результат за 2 тижні.",

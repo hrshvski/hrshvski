@@ -126,6 +126,8 @@ export type Post = {
   date: string; // ISO
   updated?: string;
   title: L;
+  /** Shorter <title> when the headline is too long for search results */
+  metaTitle?: L;
   description: L;
   /** 2–3 sentence answer shown first (for readers and AI search) */
   tldr: L;

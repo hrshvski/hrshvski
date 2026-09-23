@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/blog/[slug
   const p = getPost(slug);
   if (!p) return {};
   const l = lang as Locale;
-  return pageMetadata({ lang: l, path: `/blog/${slug}`, title: p.title[l], description: p.description[l], type: "article" });
+  return pageMetadata({ lang: l, path: `/blog/${slug}`, title: (p.metaTitle ?? p.title)[l], description: p.description[l], type: "article" });
 }
 
 export default async function PostPage({ params }: PageProps<"/[lang]/blog/[slug]">) {

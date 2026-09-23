@@ -21,7 +21,7 @@ const copy = {
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/industries">) {
   const lang = (await params).lang as Locale;
-  return pageMetadata({ lang, path: "/industries", title: `${copy.title[lang]} | Hrushevski Systems`, description: copy.meta[lang] });
+  return pageMetadata({ lang, path: "/industries", title: `${copy.title[lang]} | Hrushevski`, description: copy.meta[lang] });
 }
 
 export default async function IndustriesPage({ params }: PageProps<"/[lang]/industries">) {
