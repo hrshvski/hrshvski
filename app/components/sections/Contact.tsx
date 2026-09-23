@@ -28,6 +28,7 @@ export default function Contact({
       name: (form.elements.namedItem("name") as HTMLInputElement).value,
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
       message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+      company_site: (form.elements.namedItem("company_site") as HTMLInputElement).value,
       lang,
     };
 
@@ -117,6 +118,14 @@ export default function Contact({
                 rows={4}
                 placeholder={contact.messagePlaceholder}
                 className={`${fieldCls} resize-none`}
+              />
+              <input
+                name="company_site"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="absolute -left-[9999px] h-0 w-0 opacity-0"
               />
               {error && (
                 <p className="text-xs font-bold text-[#f87171]">{error}</p>
